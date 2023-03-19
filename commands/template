@@ -1,0 +1,31 @@
+const { SlashCommandBuilder } = require("discord.js");
+const { openAccount } = require("../../utils/economy.js")
+const { getGuildSetting } = require("../../utils/database.js")
+const strings = require("../../data/strings.js")
+const { checkCooldown,triggerCooldown } = require("../../utils/cooldown.js")
+const { humanizeMS } = require("../../utils/formatting.js")
+
+module.exports={
+    data : new SlashCommandBuilder()
+        .setName("name")
+        .setDMPermission(false)
+        .setDescription(strings._DESC),
+
+    async execute(ctx) {
+        const command = ""
+        if ((await Guild.findAll({where:{discordguildid:ctx.guild.id}})).length < 1) { await ctx.reply({content:strings.SERVER_NOT_REGISTERED,ephemeral:true});return }
+
+        //var output = await checkCooldown(ctx,command)
+        //if (output[0]) { await ctx.reply({content:strings.COOLDOWN_ACTIVE.replace("%COMMAND%",command).replace("%TIME%",humanizeMS(output[1])),ephemeral:true});return }
+
+        await ctx.deferReply()
+
+        const coinname=(await getGuildSetting(ctx.guild.id,"coinname"))
+        await openAccount(ctx.user,ctx.guild.id)
+
+        await ctx.editReply({content:"Hello o/"})
+        
+        // triggerCooldown(ctx,command)
+    },
+
+}

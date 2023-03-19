@@ -1,0 +1,62 @@
+ module.exports=(sequelize,DataTypes)=>{
+    return sequelize.define("user",{
+        economyuserid: {type:DataTypes.INTEGER,primaryKey:true,autoIncrement:true},
+        discorduserid: DataTypes.STRING,
+        discordguildid: {
+            type:DataTypes.STRING,
+            references:{
+                model:{tableName:"Guild"},
+                key:"discordguildid"
+            },
+            allowNull: false,
+            onUpdate: 'cascade',
+            onDelete: 'cascade',
+        },
+        commandsUntilCooldownRemaining_work: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_crime: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_rob: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_slut: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_beg: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_withdraw: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_deposit: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_send: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_cockfight: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_blackjack: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_slots: DataTypes.INTEGER,
+        commandsUntilCooldownRemaining_buy: DataTypes.INTEGER,
+
+        firstCommandExecuted_work: DataTypes.TEXT,
+        firstCommandExecuted_crime: DataTypes.TEXT,
+        firstCommandExecuted_rob: DataTypes.TEXT,
+        firstCommandExecuted_slut: DataTypes.TEXT,
+        firstCommandExecuted_beg: DataTypes.TEXT,
+        firstCommandExecuted_withdraw: DataTypes.TEXT,
+        firstCommandExecuted_deposit: DataTypes.TEXT,
+        firstCommandExecuted_send: DataTypes.TEXT,
+        firstCommandExecuted_cockfight: DataTypes.TEXT,
+        firstCommandExecuted_blackjack: DataTypes.TEXT,
+        firstCommandExecuted_slots: DataTypes.TEXT,
+        firstCommandExecuted_buy: DataTypes.TEXT,
+
+        cooldowns_work: DataTypes.TEXT,
+        cooldowns_crime: DataTypes.TEXT,
+        cooldowns_rob: DataTypes.TEXT,
+        cooldowns_slut: DataTypes.TEXT,
+        cooldowns_beg: DataTypes.TEXT,
+        cooldowns_withdraw: DataTypes.TEXT,
+        cooldowns_deposit: DataTypes.TEXT,
+        cooldowns_send: DataTypes.TEXT,
+        cooldowns_cockfight: DataTypes.TEXT,
+        cooldowns_blackjack: DataTypes.TEXT,
+        cooldowns_slots: DataTypes.TEXT,
+        cooldowns_buy: DataTypes.TEXT,
+
+        inventory_chicken: DataTypes.TEXT,
+        inventory_nft: DataTypes.TEXT,
+
+        wallet: DataTypes.INTEGER,
+        bank: DataTypes.INTEGER,
+        winnings: DataTypes.INTEGER,
+        losses: DataTypes.INTEGER,
+    })
+}
