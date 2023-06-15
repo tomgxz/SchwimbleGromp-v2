@@ -9,6 +9,7 @@ function currentCooldownTime() { return Date.now() }
 // If the command is off cooldown, it will be (false,-1)
 async function checkCooldown(ctx,command) {
     const commandsUntilCooldown = await getGuildSetting(ctx.guild.id,`commandsUntilCooldown_${command}`)
+
     const firstCommandExecuted = await getUserSetting(ctx.user.id,ctx.guild.id,`firstCommandExecuted_${command}`)
     const cooldownLength = (await getGuildSetting(ctx.guild.id,`cooldowns_${command}`))
     var commandsUntilCooldownRemaining = await getUserSetting(ctx.user.id,ctx.guild.id,`commandsUntilCooldownRemaining_${command}`)

@@ -22,11 +22,18 @@ function getDiscordUserList() {
 
 async function getUserBalances(discorduid,guildid) { return (await User.findAll({attributes:["wallet","bank"],where:{discorduserid:discorduid,discordguildid:guildid.toString()}}))[0].dataValues }
 
+async function getUserIds(guildid) {
+    return await User.findAll({attributes:["discorduserid"],where:{discordguildid:guildid.toString()}})
 
-function getUserIds(guildid) {
     out=[]
     for (x in dbSelect(`SELECT * FROM User WHERE guildid=${guildid}`)) {out.append(x[1])}
     return out
+}
+
+async function userInGuild(discorduid,guildid) {
+    var qresult = (await User.findAll({attributes:["discorduserid"],where:{discorduserid:discorduid,discordguildid:guildid.toString()}}))
+    if (qresult.length < 1) return false
+    else return true
 }
 
 async function getGuildSetting(guildid,key) { return (await Guild.findAll({attributes:[key],where:{discordguildid:guildid.toString()}}))[0].dataValues[key] }
@@ -52,4 +59,4 @@ async function updateBankBalance(discorduid,guildid,amount) {
     await setUserSetting(discorduid,guildid,"bank",(await getUserBalances(discorduid,guildid)).bank+amount)
 }
 
-module.exports={dbExecute,dbSelect,getGuildList,getDiscordUserList,getUserBalances,getUserIds,getGuildSetting,getUserSetting,setUserSetting,updateWalletBalance,updateBankBalance}
+module.exports={dbExecute,dbSelect,getGuildList,getDiscordUserList,getUserBalances,getUserIds,getGuildSetting,getUserSetting,setUserSetting,updateWalletBalance,updateBankBalance,userInGuild}

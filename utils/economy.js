@@ -5,7 +5,6 @@ const { getDefaultUserSettings } = require("../utils/defaults.js")
 async function openAccount(user,guildid) {
     const users = await User.findAll({where:{discorduserid:user.id,discordguildid:guildid}})
     if (users.length < 1) {
-        console.log("Length less than 1")
         await createUser(user.id,guildid,getDefaultUserSettings())
     }
 }

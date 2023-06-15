@@ -5,6 +5,7 @@ const { checkCooldown,triggerCooldown } = require("../../utils/cooldown.js")
 const { getGuildSetting,updateWalletBalance } = require("../../utils/database.js")
 const { humanizeNumber,humanizeMS } = require("../../utils/formatting.js")
 const { Guild } = require("../../utils/dbobjects.js")
+const { ensureuser } = require("../../utils/ensureuser.js")
 
 module.exports={
     data : new SlashCommandBuilder()
@@ -15,6 +16,9 @@ module.exports={
     async execute(ctx) {
         const command = "work"
         if ((await Guild.findAll({where:{discordguildid:ctx.guild.id}})).length < 1) { await ctx.reply({content:strings.SERVER_NOT_REGISTERED,ephemeral:true});return }
+
+        // If there is no user in the database, create a new user for the current ctx.user
+        await ensureuser(ctx.user.id,ctx.guild.id)
 
         var output = await checkCooldown(ctx,command)
         if (output[0]) { await ctx.reply({content:strings.COOLDOWN_ACTIVE.replace("%COMMAND%",command).replace("%TIME%",humanizeMS(output[1])),ephemeral:true});return }

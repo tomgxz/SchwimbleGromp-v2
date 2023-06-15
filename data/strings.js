@@ -6,6 +6,8 @@ module.exports={
     SETUSERBALANCE_DESC: "Manually sets a specified user's balance. Requires Administrator permissions.",
     SETUSERCOOLDOWN_DESC: "Manually reset a specified user's cooldown for one of their commands. Requires Administrator permissions.",
 
+    TEST_DESC: "Tests the connection between SchwimbleGromp, Discord, and the User",
+
     BALANCE_DESC: "Displays your balance or that of another user",
     BEG_DESC: "Earn some money the easy way",
     COOLDOWN_DESC: "See the cooldown of a command",
@@ -28,6 +30,11 @@ module.exports={
     ERROR_NUMBER_LT: "`%VAR%` needs to be %LT% or less",
 
     LACKING_PERMISSION: "You don't have permission to use this command",
+
+    // TEST STRINGS
+
+    TEST_SUCCESS: "Test successful",
+    TEST_FAILED: "Test failed",
 
     // COOLDOWN STRINGS
 

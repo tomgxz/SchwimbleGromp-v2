@@ -4,6 +4,7 @@ const { getGuildSetting,setUserSetting } = require("../../utils/database.js")
 const { Guild } = require("../../utils/dbobjects.js")
 const strings = require("../../data/strings.js")
 const { humanizeNumber } = require("../../utils/formatting.js")
+const { ensureuser } = require("../../utils/ensureuser.js")
 
 module.exports={
     data : new SlashCommandBuilder()
@@ -41,7 +42,8 @@ module.exports={
         var user = ctx.options.getUser("user")
         var _command = ctx.options.getString("command")
 
-        await openAccount(user,ctx.guild.id)
+        // If there is no user in the database, create a new user for the current ctx.user
+        await ensureuser(user.id,ctx.guild.id)
 
         await setUserSetting(user.id,ctx.guild.id,`commandsUntilCooldownRemaining_${_command}`,await getGuildSetting(ctx.guild.id,`commandsUntilCooldown_${_command}`))
         await setUserSetting(user.id,ctx.guild.id,`cooldowns_${_command}`,-1)

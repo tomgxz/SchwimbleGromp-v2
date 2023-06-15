@@ -4,6 +4,7 @@ const { getGuildSetting,setUserSetting } = require("../../utils/database.js")
 const { Guild } = require("../../utils/dbobjects.js")
 const strings = require("../../data/strings.js")
 const { humanizeNumber } = require("../../utils/formatting.js")
+const { ensureuser } = require("../../utils/ensureuser.js")
 
 module.exports={
     data : new SlashCommandBuilder()
@@ -40,9 +41,11 @@ module.exports={
         var user = ctx.options.getUser("user")
         var amount = ctx.options.getInteger("amount")
         var store = ctx.options.getString("store")
-
+        
+        // If there is no user in the database, create a new user for the current ctx.user
+        await ensureuser(user.id,ctx.guild.id)
+        
         const coinname=(await getGuildSetting(ctx.guild.id,"coinname"))
-        await openAccount(user,ctx.guild.id)
 
         await setUserSetting(user.id,ctx.guild.id,store,amount)
 

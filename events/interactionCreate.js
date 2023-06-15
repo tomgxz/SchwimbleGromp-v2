@@ -16,6 +16,7 @@ module.exports={
                     console.error(error);
                     try { await ctx.reply({content:"There was an error while executing this command.",ephemeral:true}); }
                     catch (e) { await ctx.editReply({content:"There was an error while executing this command.",ephemeral:true}); }
+                    //throw error
                 }
 
             }
